@@ -1,0 +1,5 @@
+(a,b+d)-(a,b)=d
+(a+c,b)-(a,b)=360000*c
+
+OpCompute(a,b)=360000*a+b+250635
+OpCompute(x,y)=19690720
