@@ -10,21 +10,12 @@ object Day3p2 {
       routeDatabase.collectAsList.asScala.map(_.map(e => (e._1, e._2.toInt)))
     val routeAsInt: collection.mutable.Buffer[Array[(Int, Int)]] =
       routes.map(_.map(signedDirection(_)))
-    //println(routeAsInt.getClass())
-    /* routeAsInt.foreach { e =>
-    //   e.foreach(println)
-    //   println("NEXT\n")
-     }*/
     var allGraphPoints
         : collection.mutable.ListBuffer[Map[Tuple2[Int, Int], Int]] =
       collection.mutable.ListBuffer[Map[Tuple2[Int, Int], Int]]()
     routeAsInt.foreach { e =>
       allGraphPoints += (createGraph(route = e))
     }
-    /*    allGraphPoints.foreach { e =>
-//      println(e.toSeq.sortBy(_._2))
-//      println("NEXT\n")
-    }*/
     val inter: collection.immutable.Map[Tuple2[Int, Int], Int] =
       allGraphPoints(0).keySet
         .intersect(allGraphPoints(1).keySet)
@@ -49,19 +40,15 @@ object Day3p2 {
     route.foreach { s =>
       val xInc: Int = if (s._1 > 0) 1 else -1
       val yInc: Int = if (s._2 > 0) 1 else -1
-      //println(1 to s._1.abs)
       for (_ <- 1 to s._1.abs) {
         dx += xInc
         dist += 1
         graphPoints += ((dx, dy) -> (dist))
-        //println((dx, dy) -> dist)
       }
-      //println(1 to s._2.abs)
       for (_ <- 1 to s._2.abs) {
         dy += yInc
         dist += 1
         graphPoints += ((dx, dy) -> (dist))
-        //println((dx, dy) -> dist)
       }
 
     }
