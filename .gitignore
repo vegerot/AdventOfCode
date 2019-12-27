@@ -1,2 +1,6 @@
 **/.bloop
 **/.metals
+**/target
+*.class
+*.log
+**/.vscode/**

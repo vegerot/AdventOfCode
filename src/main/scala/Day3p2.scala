@@ -2,7 +2,7 @@ import org.apache.spark.sql.SparkSession
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.ArrayBuffer
-object Day3p1 {
+object Day3p2 {
   def main(args: Array[String]): Unit = {
     val routeDatabase: org.apache.spark.sql.Dataset[Array[(String, String)]] =
       getFromFile(fileName = "src/main/resources/input3.txt")
@@ -28,7 +28,7 @@ object Day3p1 {
     val inter: collection.immutable.Map[Tuple2[Int, Int], Int] =
       allGraphPoints(0).keySet
         .intersect(allGraphPoints(1).keySet)
-        .map(k => k -> allGraphPoints(0)(k))
+        .map(k => k -> (allGraphPoints(0)(k) + allGraphPoints(1)(k)))
         .toMap
     val closest: Int = inter.toSeq
       .sortBy(_._2)
@@ -52,15 +52,15 @@ object Day3p1 {
       //println(1 to s._1.abs)
       for (_ <- 1 to s._1.abs) {
         dx += xInc
-        dist += xInc
-        graphPoints += ((dx, dy) -> (dx.abs + dy.abs))
+        dist += 1
+        graphPoints += ((dx, dy) -> (dist))
         //println((dx, dy) -> dist)
       }
       //println(1 to s._2.abs)
       for (_ <- 1 to s._2.abs) {
         dy += yInc
-        dist += yInc
-        graphPoints += ((dx, dy) -> (dx.abs + dy.abs))
+        dist += 1
+        graphPoints += ((dx, dy) -> (dist))
         //println((dx, dy) -> dist)
       }
 
