@@ -1,9 +1,11 @@
 import { assertEquals } from "https://deno.land/std@0.82.0/testing/asserts.ts";
 
 import {
-  countValidPasswords,
+  countValidSledPasswords,
+  countValidTobogganPasswords,
   parsePasswordRule,
-  isValidPassword,
+  isValidSledPassword,
+  isValidTobogganPassword,
 } from "./lib.ts";
 
 const exampleInput = ["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"];
@@ -13,8 +15,12 @@ const exampleInput = ["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"];
 // });
 //
 
-Deno.test("countValidPasswords", () => {
-  assertEquals(countValidPasswords(exampleInput), 2);
+Deno.test("countValidSledPasswords", () => {
+  assertEquals(countValidSledPasswords(exampleInput), 2);
+});
+
+Deno.test("countValidTobogganPasswords", () => {
+  assertEquals(countValidTobogganPasswords(exampleInput), 1);
 });
 
 Deno.test("parsePasswordRule", () => {
@@ -42,9 +48,9 @@ Deno.test("parsePasswordRule", () => {
   });
 });
 
-Deno.test("isValidPassword", () => {
+Deno.test("isValidSledPassword", () => {
   assertEquals(
-    isValidPassword({
+    isValidSledPassword({
       range: [1, 3],
       character: "a",
       password: "abcde",
@@ -52,7 +58,7 @@ Deno.test("isValidPassword", () => {
     true
   );
   assertEquals(
-    isValidPassword({
+    isValidSledPassword({
       range: [1, 3],
       character: "b",
       password: "cdefg",
@@ -61,7 +67,7 @@ Deno.test("isValidPassword", () => {
   );
 
   assertEquals(
-    isValidPassword({
+    isValidSledPassword({
       range: [2, 9],
       character: "c",
       password: "ccccccccc",
@@ -71,7 +77,45 @@ Deno.test("isValidPassword", () => {
 
   // custom test for 2-digit numbers
   assertEquals(
-    isValidPassword({
+    isValidSledPassword({
+      range: [10, 13],
+      character: "a",
+      password: "abcde",
+    }),
+    false
+  );
+});
+
+Deno.test("isValidTobogganPassword", () => {
+  assertEquals(
+    isValidTobogganPassword({
+      range: [1, 3],
+      character: "a",
+      password: "abcde",
+    }),
+    true
+  );
+  assertEquals(
+    isValidTobogganPassword({
+      range: [1, 3],
+      character: "b",
+      password: "cdefg",
+    }),
+    false
+  );
+
+  assertEquals(
+    isValidTobogganPassword({
+      range: [2, 9],
+      character: "c",
+      password: "ccccccccc",
+    }),
+    false
+  );
+
+  // custom test for 2-digit numbers
+  assertEquals(
+    isValidTobogganPassword({
       range: [10, 13],
       character: "a",
       password: "abcde",
