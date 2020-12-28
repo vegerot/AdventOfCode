@@ -4,10 +4,10 @@ import {
 } from "https://deno.land/std@0.82.0/testing/asserts.ts";
 
 import {
-  findTwoWithSum,
-  computeTwoProduct,
   computeThreeProduct,
+  computeTwoProduct,
   findThreeWithSum,
+  findTwoWithSum,
 } from "./1.lib.ts";
 
 const input = [1721, 979, 366, 299, 675, 1456];
@@ -16,7 +16,7 @@ Deno.test("finds 2sum to 2020", () => {
   assertArrayIncludes(
     findTwoWithSum(input, 2020),
     [1721, 299],
-    "should have the right 2sum"
+    "should have the right 2sum",
   );
 });
 

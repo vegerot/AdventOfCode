@@ -3,9 +3,9 @@ import { assertEquals } from "https://deno.land/std@0.82.0/testing/asserts.ts";
 import {
   countValidSledPasswords,
   countValidTobogganPasswords,
-  parsePasswordRule,
   isValidSledPassword,
   isValidTobogganPassword,
+  parsePasswordRule,
 } from "./lib.ts";
 
 const exampleInput = ["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"];
@@ -55,7 +55,7 @@ Deno.test("isValidSledPassword", () => {
       character: "a",
       password: "abcde",
     }),
-    true
+    true,
   );
   assertEquals(
     isValidSledPassword({
@@ -63,7 +63,7 @@ Deno.test("isValidSledPassword", () => {
       character: "b",
       password: "cdefg",
     }),
-    false
+    false,
   );
 
   assertEquals(
@@ -72,7 +72,7 @@ Deno.test("isValidSledPassword", () => {
       character: "c",
       password: "ccccccccc",
     }),
-    true
+    true,
   );
 
   // custom test for 2-digit numbers
@@ -82,7 +82,7 @@ Deno.test("isValidSledPassword", () => {
       character: "a",
       password: "abcde",
     }),
-    false
+    false,
   );
 });
 
@@ -93,7 +93,7 @@ Deno.test("isValidTobogganPassword", () => {
       character: "a",
       password: "abcde",
     }),
-    true
+    true,
   );
   assertEquals(
     isValidTobogganPassword({
@@ -101,7 +101,7 @@ Deno.test("isValidTobogganPassword", () => {
       character: "b",
       password: "cdefg",
     }),
-    false
+    false,
   );
 
   assertEquals(
@@ -110,7 +110,7 @@ Deno.test("isValidTobogganPassword", () => {
       character: "c",
       password: "ccccccccc",
     }),
-    false
+    false,
   );
 
   // custom test for 2-digit numbers
@@ -120,6 +120,6 @@ Deno.test("isValidTobogganPassword", () => {
       character: "a",
       password: "abcde",
     }),
-    false
+    false,
   );
 });
