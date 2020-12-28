@@ -2,7 +2,7 @@ import { assert } from "https://deno.land/std@0.82.0/testing/asserts.ts";
 
 function countValidPasswords(
   list: string[],
-  passwordValidator: (password: PasswordRule) => boolean
+  passwordValidator: (password: PasswordRule) => boolean,
 ): number {
   return (
     (list
@@ -30,9 +30,11 @@ type PasswordRule = {
 };
 
 function parsePasswordRule(password: string): PasswordRule {
-  let ruleGroups = /(?<rangeLow>\d+)-(?<rangeHigh>\d+) (?<character>\w): (?<password>\S*)$/.exec(
-    password
-  );
+  let ruleGroups =
+    /(?<rangeLow>\d+)-(?<rangeHigh>\d+) (?<character>\w): (?<password>\S*)$/
+      .exec(
+        password,
+      );
   assert(ruleGroups?.groups);
   return {
     range: [
@@ -57,9 +59,9 @@ function isValidTobogganPassword(password: PasswordRule): boolean {
 
   return (
     (chars[password.range[0] - 1] === password.character) !==
-    (chars[password.range[1] - 1] === password.character)
+      (chars[password.range[1] - 1] === password.character)
   );
 }
 
 // exported just for tests
-export { parsePasswordRule, isValidSledPassword, isValidTobogganPassword };
+export { isValidSledPassword, isValidTobogganPassword, parsePasswordRule };
