@@ -1,4 +1,4 @@
-import { CountTreeEncounters, PointType } from "./lib.ts";
+import { multiplyTreeEncounters, PointType } from "./lib.ts";
 
 async function main() {
   const inputFile = await Deno.readTextFile("./input.txt");
@@ -6,7 +6,13 @@ async function main() {
     line.split("")
   ) as PointType[][];
   data.pop();
-  return CountTreeEncounters(data, { x: 3, y: 1 });
+  return multiplyTreeEncounters(data, [
+    { x: 1, y: 1 },
+    { x: 3, y: 1 },
+    { x: 5, y: 1 },
+    { x: 7, y: 1 },
+    { x: 1, y: 2 },
+  ]);
 }
 
 console.log(await main());

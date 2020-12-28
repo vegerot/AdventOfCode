@@ -19,12 +19,18 @@ export function CountTreeEncounters(
     .length;
 }
 
+export function multiplyTreeEncounters(input: PointType[][], slopes: Point[]) {
+  return slopes
+    .map((slope) => CountTreeEncounters(input, slope))
+    .reduce((a, b) => a * b);
+}
+
 function makeResultTree(input: PointType[][], slope: Point): PointType[] {
   const result: PointType[] = [];
 
   for (let { x, y } = slope; y < input.length; x += slope.x, y += slope.y) {
     const row = input[y];
-    const col = row[x%input[0].length];
+    const col = row[x % input[0].length];
     result.push(col);
   }
 
