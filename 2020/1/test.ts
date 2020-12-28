@@ -24,7 +24,6 @@ Deno.test("find correct 2product", () => {
   assertEquals(computeTwoProduct(input, 2020), 1721 * 299);
 });
 //
-//binary search
 
 Deno.test("finds 3sum to 2020", () => {
   assertArrayIncludes(findThreeWithSum(input, 2020), [979, 366, 675]);

@@ -49,6 +49,10 @@ export function computeThreeProduct(list: number[], target: number): number {
   return findThreeWithSum(list, target).reduce((a, b) => a * b);
 }
 
+/** at first I thought for `findThreeWithSum` I could binarySearch list for `missing`,
+ * but realized you couldn't find which pointer to move, in that case
+ */
+/*
 export function binarySearch(list: number[], target: number): number {
   let index = ~~list.length / 2;
 
@@ -58,3 +62,4 @@ export function binarySearch(list: number[], target: number): number {
   if (list[index] > target) return binarySearch(list.slice(0, index), target);
   return index;
 }
+*/
