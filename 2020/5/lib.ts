@@ -6,11 +6,44 @@ export function getLargestSeatId(input: readonly string[]): number {
       [seatCode.slice(0, 7), seatCode.slice(7)] as [string, string]
     );
 
+  // TODO sorting is slow and stupid, just find the max (taking into account tied columns
   const largestSeat = sortByRow(sortByColumn(splitInput))[0];
 
   const largestSeatId = computeSeatId(largestSeat);
 
   return largestSeatId;
+}
+
+export function findMissingSeatId(input: readonly string[]): number {
+  const splitInput = input
+    .map((seatCode) =>
+      [seatCode.slice(0, 7), seatCode.slice(7)] as [string, string]
+    );
+
+  return findMissing(
+    splitInput.map(computeSeatId),
+    [computeSeatId(["FFFFFFB", "LLL"]), computeSeatId(["BBBBBBF", "RRR"])],
+  );
+}
+
+function findMissing(
+  list: readonly number[],
+  [low, high]: [number, number],
+): number {
+  // either sort it first (easy)
+  // or put each element in `list` into an object, then go through the range and find the missing one
+
+  const presentSet = new Set(list);
+
+  for (let i = low; i <= high; ++i) {
+    if (
+      !presentSet.has(i) && presentSet.has(i - 1) && presentSet.has(i + 1)
+    ) {
+      return i;
+    }
+  }
+
+  assert(false);
 }
 
 const CharToInt = {
@@ -51,4 +84,4 @@ function computeSeatId([long, wide]: readonly [string, string]): number {
   return row * 8 + col;
 }
 
-export { computeSeatId, sortByColumn, sortByRow };
+export { computeSeatId, findMissing, sortByColumn, sortByRow };

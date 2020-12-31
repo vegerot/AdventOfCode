@@ -4,6 +4,7 @@ import {
 } from "https://deno.land/std@0.82.0/testing/asserts.ts";
 import {
   computeSeatId,
+  findMissing,
   getLargestSeatId,
   sortByColumn,
   sortByRow,
@@ -54,4 +55,23 @@ Deno.test("computeSeatId", () => {
   assertEquals(computeSeatId(splitInput[1]), 567);
   assertEquals(computeSeatId(splitInput[2]), 119);
   assertEquals(computeSeatId(splitInput[3]), 820);
+});
+
+/**
+Deno.test('findMissingSeatId', () => {
+  // TODO, because `findMissingSeatId` looks through the whole range and that's a long test to write
+})
+*/
+
+Deno.test("findMissing", () => {
+  // middle
+  assertEquals(findMissing([1, 2, 4], [1, 4]), 3);
+  assertEquals(findMissing([1, 3, 4], [1, 4]), 2);
+
+  assertEquals(findMissing([1, 4, 5, 6, 8], [1, 8]), 7);
+
+  // // first
+  // assertEquals(findMissing([3,4,5], [2, 5]), 2)
+  // // last
+  // assertEquals(findMissing([5,6,7], [5, 8]), 8)
 });
